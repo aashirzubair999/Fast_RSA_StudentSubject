@@ -4,8 +4,10 @@ from rsa_utils import encrypt_name, decrypt_name
 from models import Student
 import logging
 
+# Define the route for students
 student_router = APIRouter(prefix="/student", tags=["students"])
 
+# Add student endpoint
 @student_router.post("/addstudent")
 async def add_student(student: Student):
     try:
@@ -21,6 +23,7 @@ async def add_student(student: Student):
         logging.error(f"Error adding student: {e}")
         raise HTTPException(status_code=500, detail="Failed to add student")
 
+# Get all students for a subject
 @student_router.get("/all/{subjectid}")
 async def get_students(subjectid: int):
     try:
@@ -56,6 +59,8 @@ async def get_students(subjectid: int):
         logging.error(f"Error fetching students: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch students")
 
+
+# Get student by Subject ID
 @student_router.get("/getstudent/{studentid}")
 async def get_student(studentid: int):
     try:
@@ -84,6 +89,8 @@ async def get_student(studentid: int):
         logging.error(f"Error fetching student {studentid}: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch student")
 
+
+# Update student by student ID
 @student_router.put("/update/{studentid}")
 async def update_student(studentid: int, student: Student):
     try:
